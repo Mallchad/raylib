@@ -105,7 +105,7 @@ static void DrawCubeWires(Vector3 position, float width, float height, float len
 static void DrawRectangleV(Vector2 position, Vector2 size, Color color);
 
 // NOTE: We use raymath to get this functionality but it could be implemented in this module
-//static Matrix MatrixIdentity(void);
+//static Matrix RayMatrixIdentity(void);
 //static Matrix MatrixOrtho(double left, double right, double bottom, double top, double near, double far);
 //static Matrix MatrixPerspective(double fovy, double aspect, double near, double far);
 //static Matrix MatrixLookAt(Vector3 eye, Vector3 target, Vector3 up);
@@ -220,7 +220,7 @@ int main(void)
 #define RLGL_SET_MATRIX_MANUALLY
 #if defined(RLGL_SET_MATRIX_MANUALLY)
             matProj = MatrixOrtho(0.0, screenWidth, screenHeight, 0.0, 0.0, 1.0);
-            matView = MatrixIdentity();
+            matView = RayMatrixIdentity();
 
             rlSetMatrixModelview(matView);    // Set internal modelview matrix (default shader)
             rlSetMatrixProjection(matProj);   // Set internal projection matrix (default shader)

@@ -153,7 +153,7 @@ int main(void)
             DrawScene(cube, robot);
         EndMode3D();
         EndTextureMode();
-        Matrix lightViewProj = MatrixMultiply(lightView, lightProj);
+        Matrix lightViewProj = RayMatrixMultiply(lightView, lightProj);
 
         ClearBackground(RAYWHITE);
 

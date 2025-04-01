@@ -126,7 +126,7 @@ int main(void)
             BeginMode3D(camera);
                 // Draw character
                 Quaternion characterRotate = QuaternionFromAxisAngle((Vector3){ 0.0f, 1.0f, 0.0f }, angle*DEG2RAD);
-                characterModel.transform = MatrixMultiply(QuaternionToMatrix(characterRotate), MatrixTranslate(position.x, position.y, position.z));
+                characterModel.transform = RayMatrixMultiply(QuaternionToMatrix(characterRotate), MatrixTranslate(position.x, position.y, position.z));
                 UpdateModelAnimation(characterModel, anim, animCurrentFrame);
                 DrawMesh(characterModel.meshes[0], characterModel.materials[1], characterModel.transform);
 
@@ -143,9 +143,9 @@ int main(void)
                     Quaternion rotate = QuaternionMultiply(outRotation, QuaternionInvert(inRotation));
                     Matrix matrixTransform = QuaternionToMatrix(rotate);
                     // Translate socket to its position in the current animation
-                    matrixTransform = MatrixMultiply(matrixTransform, MatrixTranslate(transform->translation.x, transform->translation.y, transform->translation.z));
+                    matrixTransform = RayMatrixMultiply(matrixTransform, MatrixTranslate(transform->translation.x, transform->translation.y, transform->translation.z));
                     // Transform the socket using the transform of the character (angle and translate)
-                    matrixTransform = MatrixMultiply(matrixTransform, characterModel.transform);
+                    matrixTransform = RayMatrixMultiply(matrixTransform, characterModel.transform);
                     
                     // Draw mesh at socket position with socket angle rotation
                     DrawMesh(equipModel[i].meshes[0], equipModel[i].materials[1], matrixTransform);

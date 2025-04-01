@@ -64,7 +64,7 @@ int main(void)
         float angle = (float)GetRandomValue(0, 10)*DEG2RAD;
         Matrix rotation = MatrixRotate(axis, angle);
         
-        transforms[i] = MatrixMultiply(rotation, translation);
+        transforms[i] = RayMatrixMultiply(rotation, translation);
     }
 
     // Load lighting shader

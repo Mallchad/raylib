@@ -110,8 +110,8 @@ int main(void)
         SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
 
         // Rotate the torus
-        modelA.transform = MatrixMultiply(modelA.transform, MatrixRotateX(-0.025f));
-        modelA.transform = MatrixMultiply(modelA.transform, MatrixRotateZ(0.012f));
+        modelA.transform = RayMatrixMultiply(modelA.transform, MatrixRotateX(-0.025f));
+        modelA.transform = RayMatrixMultiply(modelA.transform, MatrixRotateZ(0.012f));
 
         // Update the light shader with the camera view position
         SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &camera.position.x, SHADER_UNIFORM_VEC3);

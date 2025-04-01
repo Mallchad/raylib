@@ -1047,7 +1047,7 @@ RMAPI Vector3 Vector3Unproject(Vector3 source, Matrix projection, Matrix view)
     Vector3 result = { 0 };
 
     // Calculate unprojected matrix (multiply view matrix by projection matrix) and invert it
-    Matrix matViewProj = {      // MatrixMultiply(view, projection);
+    Matrix matViewProj = {      // RayMatrixMultiply(view, projection);
         view.m0*projection.m0 + view.m1*projection.m4 + view.m2*projection.m8 + view.m3*projection.m12,
         view.m0*projection.m1 + view.m1*projection.m5 + view.m2*projection.m9 + view.m3*projection.m13,
         view.m0*projection.m2 + view.m1*projection.m6 + view.m2*projection.m10 + view.m3*projection.m14,
@@ -1557,7 +1557,7 @@ RMAPI Matrix MatrixInvert(Matrix mat)
 }
 
 // Get identity matrix
-RMAPI Matrix MatrixIdentity(void)
+RMAPI Matrix RayMatrixIdentity(void)
 {
     Matrix result = { 1.0f, 0.0f, 0.0f, 0.0f,
                       0.0f, 1.0f, 0.0f, 0.0f,
@@ -1619,7 +1619,7 @@ RMAPI Matrix MatrixSubtract(Matrix left, Matrix right)
 
 // Get two matrix multiplication
 // NOTE: When multiplying matrices... the order matters!
-RMAPI Matrix MatrixMultiply(Matrix left, Matrix right)
+RMAPI Matrix RayMatrixMultiply(Matrix left, Matrix right)
 {
     Matrix result = { 0 };
 
@@ -1706,7 +1706,7 @@ RMAPI Matrix MatrixRotateX(float angle)
     Matrix result = { 1.0f, 0.0f, 0.0f, 0.0f,
                       0.0f, 1.0f, 0.0f, 0.0f,
                       0.0f, 0.0f, 1.0f, 0.0f,
-                      0.0f, 0.0f, 0.0f, 1.0f }; // MatrixIdentity()
+                      0.0f, 0.0f, 0.0f, 1.0f }; // RayMatrixIdentity()
 
     float cosres = cosf(angle);
     float sinres = sinf(angle);
@@ -1726,7 +1726,7 @@ RMAPI Matrix MatrixRotateY(float angle)
     Matrix result = { 1.0f, 0.0f, 0.0f, 0.0f,
                       0.0f, 1.0f, 0.0f, 0.0f,
                       0.0f, 0.0f, 1.0f, 0.0f,
-                      0.0f, 0.0f, 0.0f, 1.0f }; // MatrixIdentity()
+                      0.0f, 0.0f, 0.0f, 1.0f }; // RayMatrixIdentity()
 
     float cosres = cosf(angle);
     float sinres = sinf(angle);
@@ -1746,7 +1746,7 @@ RMAPI Matrix MatrixRotateZ(float angle)
     Matrix result = { 1.0f, 0.0f, 0.0f, 0.0f,
                       0.0f, 1.0f, 0.0f, 0.0f,
                       0.0f, 0.0f, 1.0f, 0.0f,
-                      0.0f, 0.0f, 0.0f, 1.0f }; // MatrixIdentity()
+                      0.0f, 0.0f, 0.0f, 1.0f }; // RayMatrixIdentity()
 
     float cosres = cosf(angle);
     float sinres = sinf(angle);
@@ -1767,7 +1767,7 @@ RMAPI Matrix MatrixRotateXYZ(Vector3 angle)
     Matrix result = { 1.0f, 0.0f, 0.0f, 0.0f,
                       0.0f, 1.0f, 0.0f, 0.0f,
                       0.0f, 0.0f, 1.0f, 0.0f,
-                      0.0f, 0.0f, 0.0f, 1.0f }; // MatrixIdentity()
+                      0.0f, 0.0f, 0.0f, 1.0f }; // RayMatrixIdentity()
 
     float cosz = cosf(-angle.z);
     float sinz = sinf(-angle.z);
@@ -2340,7 +2340,7 @@ RMAPI Matrix QuaternionToMatrix(Quaternion q)
     Matrix result = { 1.0f, 0.0f, 0.0f, 0.0f,
                       0.0f, 1.0f, 0.0f, 0.0f,
                       0.0f, 0.0f, 1.0f, 0.0f,
-                      0.0f, 0.0f, 0.0f, 1.0f }; // MatrixIdentity()
+                      0.0f, 0.0f, 0.0f, 1.0f }; // RayMatrixIdentity()
 
     float a2 = q.x*q.x;
     float b2 = q.y*q.y;
@@ -2927,12 +2927,12 @@ inline const Matrix& operator -= (Matrix& lhs, const Matrix& rhs)
 
 inline Matrix operator * (const Matrix& lhs, const Matrix& rhs)
 {
-    return MatrixMultiply(lhs, rhs);
+    return RayMatrixMultiply(lhs, rhs);
 }
 
 inline const Matrix& operator *= (Matrix& lhs, const Matrix& rhs)
 {
-    lhs = MatrixMultiply(lhs, rhs);
+    lhs = RayMatrixMultiply(lhs, rhs);
     return lhs;
 }
 //-------------------------------------------------------------------------------

@@ -48,7 +48,7 @@
 #endif
 
 #include "rlgl.h"           // Required for: rlDrawRenderBatchActive(), rlGetMatrixModelview(), rlGetMatrixProjection()
-#include "raymath.h"        // Required for: MatrixMultiply(), MatrixToFloat()
+#include "raymath.h"        // Required for: RayMatrixMultiply(), MatrixToFloat()
 
 #define MAX_PARTICLES       1000
 
@@ -136,7 +136,7 @@ int main(void)
                 glUniform4fv(colorLoc, 1, (float *)&color);
 
                 // Get the current modelview and projection matrix so the particle system is displayed and transformed
-                Matrix modelViewProjection = MatrixMultiply(rlGetMatrixModelview(), rlGetMatrixProjection());
+                Matrix modelViewProjection = RayMatrixMultiply(rlGetMatrixModelview(), rlGetMatrixProjection());
                 
                 glUniformMatrix4fv(shader.locs[SHADER_LOC_MATRIX_MVP], 1, false, MatrixToFloat(modelViewProjection));
 
